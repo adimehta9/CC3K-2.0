@@ -82,6 +82,5 @@ int Player::getAbilitiesLeft(){
 }
 
 void Player::move(char l, string dir){
-    l = tolower(l);
     set[l-'a']->move(dir);
 }

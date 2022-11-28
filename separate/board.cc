@@ -125,17 +125,20 @@ void Board::showBoard() {
 void Board::move(char l, string dir) {
 
   try {
+    char temp = tolower(l);
     shared_ptr<Player> p;
     if (one_turn) {
       p = one;
+      l = tolower(l);
     } else {
       p = two;
+      l = toupper(l);
     }
 
     shared_ptr<BoardObjects> b = p->getSet()[tolower(l) - 'a'];
     b->setC('.');
     dis->notify(b);
-    p->move(l, dir);
+    p->move(temp, dir);
     b->setC(l);
     dis->notify(b);
     one_turn = !one_turn;

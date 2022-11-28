@@ -23,21 +23,21 @@ void Link::move(string dir){
 
     if(dir == "up"){
         if(p_one){
-            if(BoardObjects::getX() == 0 || (BoardObjects::getX() == 1 && (BoardObjects::getY() == 3 || BoardObjects::getY() == 4))){
+            if(BoardObjects::getX()-spaces < 0){
                 throw exception();
             }
         }
         BoardObjects::setX(BoardObjects::getX() - spaces);
     } else if(dir == "right"){
-        if(BoardObjects::getY() == 7) { throw exception(); }
+        if(BoardObjects::getY() + spaces > 7) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() + spaces);
 
     } else if (dir == "left"){
-        if(BoardObjects::getY() == 0) { throw exception(); }
+        if(BoardObjects::getY() - spaces < 0) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() - spaces);
     } else if (dir == "down"){
         if(!p_one) {
-            if(BoardObjects::getX() == 7 || (BoardObjects::getX() == 6 && (BoardObjects::getY() == 3 || BoardObjects::getY() == 4))){
+            if(BoardObjects::getX() + spaces > 7){
                 throw exception();
             }
         }
