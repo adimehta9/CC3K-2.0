@@ -9,7 +9,9 @@ class Virus: public Link{
     public:
     Virus(char c, int x, int y, int owner, int strength);
     char getType() override;
-    int getStrength();
+    int getStrength() override;
+    void which() override;
+    void move(string) override;
 };
 
 

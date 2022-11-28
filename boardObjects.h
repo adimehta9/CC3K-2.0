@@ -2,6 +2,7 @@
 #define BOARDOBJECTS__H
 #include <map> 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class BoardObjects{
@@ -14,9 +15,17 @@ class BoardObjects{
     BoardObjects(char c, int x, int y, int owner);
     virtual char getType() = 0;
     virtual int getStrength() = 0;
-    int getX();
-    int getY();
+    virtual void move(string);
     int getC();
+    void setC(char c);
+    int getX();
+    void setX(int i);
+    int getY();
+    void setY(int i);
+    int getOwner();
+
+    virtual void which();
+
 };
 
 

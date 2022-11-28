@@ -1,5 +1,6 @@
 #include "board.h"
 #include <iostream>
+#include <memory>
 using namespace std;
 
 
@@ -26,6 +27,9 @@ Board::Board(shared_ptr<Player> one, shared_ptr<Player> two, bool graphics) : on
 
 
 void Board::showBoard(bool one_turn){
+    cout << endl;
+    cout << "======================================" << endl;
+
     cout << "Player 1: " << endl;
     if(one_turn){
         cout << "Downloaded: " << one->getData() << "D, " << one->getVirus() << "V" << endl;
@@ -62,6 +66,8 @@ void Board::showBoard(bool one_turn){
         }
 
         cout << endl;
+        cout << "======================================" << endl;
+        cout << endl;
     } else{
         cout << "Downloaded: " << one->getData() << "D, " << one->getVirus() << "V" << endl;
         cout << "Abilities: " << one->getAbilitiesLeft() << endl;
@@ -81,7 +87,6 @@ void Board::showBoard(bool one_turn){
         }
 
         cout << endl;
-
         
         dis->showBoard();
         cout << "Player 2:" << endl;
@@ -97,6 +102,8 @@ void Board::showBoard(bool one_turn){
         }
 
         cout << endl;
+        cout << "======================================" << endl;
+        cout << endl;
 
 
     }
@@ -107,6 +114,22 @@ void Board::showBoard(bool one_turn){
 }
 
 
+void Board::move(char l, string dir, bool one_turn){
+    shared_ptr<Player> p;
+    if(one_turn){
+        p = one;
+    } else{
+        p = two;
+    }
+
+    shared_ptr<BoardObjects> b =  p->getSet()[tolower(l)-'a'];
+    b->setC('.');
+    dis->notify(b);
+    p->move(l, dir);
+    b->setC(l);
+    dis->notify(b);
+    showBoard(!one_turn);
+}
 
 
 

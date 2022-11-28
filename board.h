@@ -20,8 +20,8 @@ class Board{
     
     Board(shared_ptr<Player> one, shared_ptr<Player> two, bool graphics);
     void showBoard(bool one_turn);
-
-
+    void move(char l, string dir, bool one_turn);
+    
 
 
 };

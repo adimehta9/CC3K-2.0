@@ -7,3 +7,6 @@ char Data::getType() { return 'D'; }
 
 int Data::getStrength() { return Link::getStrength(); }
 
+void Data::which() { cout << "Data" << endl; }
+
+void Data::move(string dir) { Link::move(dir); }

@@ -1,8 +1,5 @@
 #include "player.h"
-#include "server.h"
-#include <sstream>
-#include <iostream>
-#include <map>
+
 using namespace std;
 
 
@@ -82,4 +79,9 @@ int Player::getVirus(){
 
 int Player::getAbilitiesLeft(){
     return abilitiesLeft;
+}
+
+void Player::move(char l, string dir){
+    l = tolower(l);
+    set[l-'a']->move(dir);
 }

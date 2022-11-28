@@ -12,8 +12,11 @@ class Link: public BoardObjects{
 
     public:
     Link(char c, int x, int y, int owner, int strength);
-    virtual char getType() = 0;
+    /* virtual char getType() = 0; */
     int getStrength() override;
+    void move(string) override;
+    void which() override;
+    int getSpaces();
 };
 
 

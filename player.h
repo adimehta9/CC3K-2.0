@@ -1,14 +1,16 @@
 #ifndef PLAYER__H
 #define PLAYER__H
-
+#include <iostream>
+#include <sstream>
 #include <vector>
 #include <map>
+#include <memory>
 #include <string>
 #include "link.h"
 #include "data.h"
 #include "virus.h"
+#include "server.h"
 #include "boardObjects.h"
-#include <memory>
 using namespace std;
 
 class Player{
@@ -17,7 +19,6 @@ class Player{
     int player;
     map<char, int> abilityCount;
     vector <shared_ptr<BoardObjects>> set;
-    vector <shared_ptr<Link>> linkSet;
     vector <shared_ptr<Link>> oppLinkSet {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
     int abilitiesLeft = 5;
     
@@ -27,10 +28,12 @@ class Player{
     vector <shared_ptr<BoardObjects>> getSet();
     vector <shared_ptr<Link>> getOppLinkSet();
     void showAbilities();
+    
 
     int getData();
     int getVirus();
     int getAbilitiesLeft();
+    void move(char l, string dir);
     
 };
 
