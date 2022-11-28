@@ -13,15 +13,16 @@ class Board{
     shared_ptr<Player> one;
     shared_ptr<Player> two;
     shared_ptr<Display> dis;
+    bool one_turn = true;
     Graphics graph;
     bool graphics;
     
     public:
     
     Board(shared_ptr<Player> one, shared_ptr<Player> two, bool graphics);
-    void showBoard(bool one_turn);
-    void move(char l, string dir, bool one_turn);
-    
+    void showBoard();
+    void move(char l, string dir);
+    void showAbilities();
 
 
 };

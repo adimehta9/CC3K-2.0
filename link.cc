@@ -11,6 +11,9 @@ int Link::getStrength() { return strength; }
 
 int Link::getSpaces() { return spaces; }
 
+
+
+// add throwing exceptions
 void Link::move(string dir){
     bool p_one = false;
     if(BoardObjects::getOwner() == 1){
@@ -39,7 +42,6 @@ void Link::move(string dir){
                 return;
             }
         }
-
         BoardObjects::setX(BoardObjects::getX() + spaces);
     }
 }
@@ -47,3 +49,4 @@ void Link::move(string dir){
 void Link::which(){
     cout << "link" << endl;
 }
+

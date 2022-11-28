@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
   map<char, int> abilityCount2{
       {'L', 1}, {'F', 1}, {'D', 1}, {'S', 1}, {'P', 1}};
   bool graphics = false;
-  bool one_turn = true;
 
   // randomize link1 and link 2
   vector<string> all_links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
@@ -99,7 +98,7 @@ int main(int argc, char *argv[]) {
   shared_ptr<Player> two = make_shared<Player>(2, abilityCount2, link2);
   shared_ptr<Board> board = make_shared<Board>(one, two, graphics);
 
-  board->showBoard(one_turn);
+  board->showBoard();
 
   while (getline(cin, cur)) {
     istringstream iss{cur};
@@ -109,25 +108,18 @@ int main(int argc, char *argv[]) {
       string dir;
       iss >> l;
       iss >> dir;
-      board->move(l, dir, one_turn);
-      one_turn = !one_turn;
+      board->move(l, dir);
+      /* one_turn = !one_turn; */
     } else if (cur == "abilities") {
       cout << endl;
-      if (one_turn) {
-        cout << "Player One's Abilities:" << endl;
-        one->showAbilities();
-      } else {
-        cout << "Player Two's Abilities:" << endl;
-        two->showAbilities();
-      }
-
+      board->showAbilities();
       cout << endl;
 
     } else if (cur == "ability") {
 
     } else if (cur == "board") {
       cout << endl;
-      board->showBoard(one_turn);
+      board->showBoard();
       cout << endl;
 
     } else if (cur == "sequence") {
