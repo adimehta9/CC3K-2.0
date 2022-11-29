@@ -12,6 +12,8 @@ class Virus: public Link{
     int getStrength() override;
     void which() override;
     void move(string) override;
+    void add(shared_ptr<BoardObjects>);
+    vector <shared_ptr<BoardObjects>> getOthers();
 };
 
 

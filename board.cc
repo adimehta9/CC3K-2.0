@@ -1,4 +1,5 @@
 #include "board.h"
+#include <exception>
 #include <iostream>
 #include <memory>
 using namespace std;
@@ -123,21 +124,29 @@ void Board::showBoard() {
 
 void Board::move(char l, string dir) {
 
-  shared_ptr<Player> p;
-  if (one_turn) {
-    p = one;
-  } else {
-    p = two;
-  }
+  try {
+    char temp = tolower(l);
+    shared_ptr<Player> p;
+    if (one_turn) {
+      p = one;
+      l = tolower(l);
+    } else {
+      p = two;
+      l = toupper(l);
+    }
 
-  shared_ptr<BoardObjects> b = p->getSet()[tolower(l) - 'a'];
-  b->setC('.');
-  dis->notify(b);
-  p->move(l, dir);
-  b->setC(l);
-  dis->notify(b);
-  one_turn = !one_turn;
-  showBoard();
+    shared_ptr<BoardObjects> b = p->getSet()[tolower(l) - 'a'];
+    b->setC('.');
+    dis->notify(b);
+    p->move(temp, dir);
+    b->setC(l);
+    dis->notify(b);
+    one_turn = !one_turn;
+    showBoard();
+  } catch (exception &e){
+    cout << endl << "Invalid move" << endl;
+    cout << "Try again" << endl << endl;
+  }
 }
 
 void Board::showAbilities() {

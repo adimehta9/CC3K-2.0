@@ -19,3 +19,7 @@ void BoardObjects::move(string) { }
 int BoardObjects::getOwner() { return owner; }
 
 void BoardObjects::which() { cout << "Board" << endl; }
+
+void BoardObjects::add(shared_ptr<BoardObjects>) { }
+
+vector <shared_ptr<BoardObjects>> BoardObjects::getOthers() {  }

@@ -1,5 +1,6 @@
 #include "link.h"
 #include "boardObjects.h"
+#include <exception>
 #include <functional>
 #include <iostream>
 using namespace std;
@@ -12,8 +13,6 @@ int Link::getStrength() { return strength; }
 int Link::getSpaces() { return spaces; }
 
 
-
-// add throwing exceptions
 void Link::move(string dir){
     bool p_one = false;
     if(BoardObjects::getOwner() == 1){
@@ -21,28 +20,52 @@ void Link::move(string dir){
     }
 
     if(dir == "up"){
+        for(auto i: others){
+            if(getX() - spaces == i->getX() && getY() == i->getY()){
+                throw exception();
+            }
+        } 
+        
         if(p_one){
-            if(BoardObjects::getX() == 0 || (BoardObjects::getX() == 1 && (BoardObjects::getY() == 3 || BoardObjects::getY() == 4))){
-                cout << "Invalid move" << endl;
-                return;
+            if(BoardObjects::getX()-spaces < 0){
+                throw exception();
             }
         }
         BoardObjects::setX(BoardObjects::getX() - spaces);
     } else if(dir == "right"){
-        if(BoardObjects::getY() == 7) { cout << "Invalid move" << endl; return; }
+        for(auto i: others){
+            if(getX() == i->getX() && getY() + spaces == i->getY()){
+                throw exception();
+            }
+        }
+
+        if(BoardObjects::getY() + spaces > 7) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() + spaces);
 
     } else if (dir == "left"){
-        if(BoardObjects::getY() == 0) { cout << "Invalid move" << endl; return; }
+        for(auto i: others){
+            if(getX() == i->getX() && getY() - spaces == i->getY()){
+                throw exception();
+            }
+        }
+
+        if(BoardObjects::getY() - spaces < 0) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() - spaces);
     } else if (dir == "down"){
+        for(auto i: others){
+            if(getX() + spaces == i->getX() && getY() == i->getY()){
+                throw exception();
+            }
+        }
+
         if(!p_one) {
-            if(BoardObjects::getX() == 7 || (BoardObjects::getX() == 6 && (BoardObjects::getY() == 3 || BoardObjects::getY() == 4))){
-                cout << "Invalid move" << endl;
-                return;
+            if(BoardObjects::getX() + spaces > 7){
+                throw exception();
             }
         }
         BoardObjects::setX(BoardObjects::getX() + spaces);
+    } else {
+        throw exception();
     }
 }
 
@@ -50,3 +73,10 @@ void Link::which(){
     cout << "link" << endl;
 }
 
+void Link::add(shared_ptr<BoardObjects> o){
+    others.emplace_back(o);
+}
+
+vector <shared_ptr<BoardObjects>> Link::getOthers(){
+    return others;
+}

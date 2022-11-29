@@ -7,6 +7,12 @@ char Virus::getType() { return 'V'; }
 
 int Virus::getStrength() { return Link::getStrength(); }
 
-void Virus::which() { cout << "Virus" << endl; }
+void Virus::which() { cout << "Hi" << endl; }
 
 void Virus::move(string dir) { Link::move(dir); }
+
+void Virus::add(shared_ptr<BoardObjects> o){ Link::add(o); }
+
+vector <shared_ptr<BoardObjects>> Virus::getOthers(){
+    return Link::others;
+}
