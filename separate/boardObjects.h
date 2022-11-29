@@ -3,6 +3,8 @@
 #include <map> 
 #include <string>
 #include <iostream>
+#include <memory>
+#include <vector>
 using namespace std;
 
 class BoardObjects{
@@ -23,7 +25,8 @@ class BoardObjects{
     int getY();
     void setY(int i);
     int getOwner();
-
+    virtual void add(shared_ptr<BoardObjects>);
+    virtual vector <shared_ptr<BoardObjects>> getOthers();
     virtual void which();
 
 };

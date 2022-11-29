@@ -43,6 +43,17 @@ Player::Player(int player, map<char, int> abilityCount, string linkString): play
         set.emplace_back(make_shared<Server>('S', 7, 4, player));
     }
 
+    for(auto i: set){
+        for(auto j: set){
+            if(i != j){
+                i->add(j);
+                /* cout << i->getOthers()[0]->getType(); */
+                
+            }
+        }
+    }
+
+
 }
 
 
