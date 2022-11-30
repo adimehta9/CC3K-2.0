@@ -95,3 +95,7 @@ int Player::getAbilitiesLeft(){
 void Player::move(char l, string dir){
     set[l-'a']->move(dir);
 }
+
+void Player::incData() { dd += 1; }
+    
+void Player::incVirus() { vd += 1; }

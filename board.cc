@@ -122,32 +122,76 @@ void Board::showBoard() {
   }
 }
 
+void Board::download(shared_ptr<BoardObjects> l, shared_ptr<Player> p){
+  if(l->getType() == 'V'){
+    p->incVirus();
+  } else if (l->getType() == 'D'){
+    p->incData();
+  }
+}
+
+shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> op, shared_ptr<BoardObjects> l){
+  vector<shared_ptr<BoardObjects>> v = op->getSet();
+  for(auto i: v){
+    if(l->getX() == i->getX() && l->getY() == i->getY()){
+      if(i->getType() == 'S'){
+        cout << "Owner of i downloads l" << endl;
+        download(l, op);
+        p->getSet()[tolower(l->getC())-'a'] = nullptr;
+        return op;
+      } else if (l->getStrength() >= i->getStrength()){
+        cout << "Owner of l downloads i" << endl;
+        download(i, p);
+        op->getSet()[tolower(i->getC())-'a'] = nullptr;
+        return p;
+      } else {
+        cout << "Owner of i downloads l 2" << endl;
+        download(l, op);
+        p->getSet()[tolower(l->getC())-'a'] = nullptr;
+        return op;
+      }
+    }
+  }
+  return nullptr;
+}
+
 void Board::move(char l, string dir) {
 
   try {
     char temp = tolower(l);
     shared_ptr<Player> p;
+    shared_ptr<Player> op;
     if (one_turn) {
       p = one;
-      l = tolower(l);
+      op = two;
+      l = temp;
     } else {
       p = two;
+      op = one;
       l = toupper(l);
     }
 
-    shared_ptr<BoardObjects> b = p->getSet()[tolower(l) - 'a'];
+    shared_ptr<BoardObjects> b = p->getSet()[temp - 'a'];
     b->setC('.');
     dis->notify(b);
     p->move(temp, dir);
     b->setC(l);
-    dis->notify(b);
+
+    shared_ptr<Player> winner = battleCheck(p, op, b);
+
+    if(winner == nullptr || winner == p){
+      dis->notify(b);
+    }
     one_turn = !one_turn;
     showBoard();
+
+
   } catch (exception &e){
-    cout << endl << "Invalid move" << endl;
+    cout << endl << "Invalid Move" << endl;
     cout << "Try again" << endl << endl;
   }
 }
+
 
 void Board::showAbilities() {
   if (one_turn) {

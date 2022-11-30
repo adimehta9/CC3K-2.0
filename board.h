@@ -23,7 +23,8 @@ class Board{
     void showBoard();
     void move(char l, string dir);
     void showAbilities();
-
+    void download(shared_ptr<BoardObjects> l, shared_ptr<Player> p);
+    shared_ptr<Player> battleCheck(shared_ptr<Player> p, shared_ptr<Player> op, shared_ptr<BoardObjects> l);
 
 };
 

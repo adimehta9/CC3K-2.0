@@ -30,6 +30,8 @@ class Player{
     void showAbilities();
     
 
+    void incData();
+    void incVirus();
     int getData();
     int getVirus();
     int getAbilitiesLeft();
