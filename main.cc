@@ -126,6 +126,11 @@ int main(int argc, char *argv[]) {
 
     } else if (cur == "quit") {
       break;
+    } else{
+      cout << endl;
+      cout << "Invalid Movoe" << endl;
+      cout << "Try Again a" << endl;
+      cout << endl;
     }
   }
 }

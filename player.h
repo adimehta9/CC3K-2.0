@@ -26,6 +26,7 @@ class Player{
     Player(int player, map<char, int> abilityCount, string linkStrng);
     map<char, int> getAbilityCount();
     vector <shared_ptr<BoardObjects>> getSet();
+    void setSet(int i, shared_ptr<BoardObjects> l);
     vector <shared_ptr<Link>> getOppLinkSet();
     void showAbilities();
     

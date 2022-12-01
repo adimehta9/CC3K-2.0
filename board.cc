@@ -137,17 +137,17 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
       if(i->getType() == 'S'){
         cout << "Owner of i downloads l" << endl;
         download(l, op);
-        p->getSet()[tolower(l->getC())-'a'] = nullptr;
+        p->setSet(tolower(l->getC())-'a', nullptr);
         return op;
       } else if (l->getStrength() >= i->getStrength()){
         cout << "Owner of l downloads i" << endl;
         download(i, p);
-        op->getSet()[tolower(i->getC())-'a'] = nullptr;
+        op->setSet(tolower(l->getC())-'a', nullptr);
         return p;
       } else {
         cout << "Owner of i downloads l 2" << endl;
         download(l, op);
-        p->getSet()[tolower(l->getC())-'a'] = nullptr;
+        p->setSet(tolower(l->getC())-'a', nullptr);
         return op;
       }
     }
@@ -182,13 +182,20 @@ void Board::move(char l, string dir) {
     if(winner == nullptr || winner == p){
       dis->notify(b);
     }
+
+    /* for(auto i: two->getSet()){
+      if(i == nullptr){ cout << "Hi" << endl; } 
+      else cout << i->getType();
+    } */
+    cout << endl;
+
     one_turn = !one_turn;
     showBoard();
 
 
   } catch (exception &e){
     cout << endl << "Invalid Move" << endl;
-    cout << "Try again" << endl << endl;
+    cout << "Try again s" << endl << endl;
   }
 }
 

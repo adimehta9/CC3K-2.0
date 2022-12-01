@@ -66,6 +66,10 @@ vector <shared_ptr<BoardObjects>> Player::getSet(){
     return set;
 }
 
+void Player::setSet(int i, shared_ptr<BoardObjects> l){
+    set[i] = l;
+}
+
 vector <shared_ptr<Link>> Player::getOppLinkSet() {
     return oppLinkSet;
 }
