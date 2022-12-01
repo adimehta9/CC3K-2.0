@@ -18,3 +18,8 @@ bool Server::isAlive() {
 }
 
 void Server::kill() { };
+
+vector <shared_ptr<BoardObjects>> Server::getOthers(){
+    vector <shared_ptr<BoardObjects>> v;
+    return v;
+}

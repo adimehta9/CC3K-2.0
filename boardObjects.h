@@ -26,7 +26,7 @@ class BoardObjects{
     void setY(int i);
     int getOwner();
     virtual void add(shared_ptr<BoardObjects>);
-    virtual vector <shared_ptr<BoardObjects>> getOthers();
+    virtual vector <shared_ptr<BoardObjects>> getOthers() = 0;
     virtual void which();
     virtual void kill() = 0;
     virtual bool isAlive() = 0;

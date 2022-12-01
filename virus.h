@@ -15,7 +15,7 @@ class Virus: public Link{
     bool isAlive() override;
     void kill() override;
     void add(shared_ptr<BoardObjects>);
-    vector <shared_ptr<BoardObjects>> getOthers();
+    vector <shared_ptr<BoardObjects>> getOthers() override;
 };
 
 

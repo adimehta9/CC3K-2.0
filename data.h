@@ -13,7 +13,7 @@ class Data: public Link{
     void which() override;
     void move(string) override;
     void add(shared_ptr<BoardObjects>);
-    vector <shared_ptr<BoardObjects>> getOthers();
+    vector <shared_ptr<BoardObjects>> getOthers() override;
     bool isAlive() override;
     void kill() override;
 

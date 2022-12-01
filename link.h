@@ -25,7 +25,7 @@ class Link: public BoardObjects{
     void which() override;
     int getSpaces();
     virtual void add(shared_ptr<BoardObjects>);
-    vector <shared_ptr<BoardObjects>> getOthers();
+    vector <shared_ptr<BoardObjects>> getOthers() override;
 };
 
 

@@ -181,6 +181,9 @@ void Board::move(char l, string dir) {
     }
 
     shared_ptr<BoardObjects> b = p->getSet()[temp - 'a'];
+    if(b->isAlive() == false){
+      throw exception();
+    }
     b->setC('.');
     dis->notify(b);
     p->move(temp, dir);
