@@ -28,6 +28,8 @@ class BoardObjects{
     virtual void add(shared_ptr<BoardObjects>);
     virtual vector <shared_ptr<BoardObjects>> getOthers();
     virtual void which();
+    virtual void kill() = 0;
+    virtual bool isAlive() = 0;
 
 };
 

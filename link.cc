@@ -12,7 +12,6 @@ int Link::getStrength() { return strength; }
 
 int Link::getSpaces() { return spaces; }
 
-
 void Link::move(string dir){
     bool p_one = false;
     if(BoardObjects::getOwner() == 1){

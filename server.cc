@@ -12,3 +12,9 @@ char Server::getType(){
 int Server::getStrength() {
     return 0;
 }
+
+bool Server::isAlive() {
+    return true;
+}
+
+void Server::kill() { };

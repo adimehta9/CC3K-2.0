@@ -19,7 +19,7 @@ class Player{
     int player;
     map<char, int> abilityCount;
     vector <shared_ptr<BoardObjects>> set;
-    vector <shared_ptr<Link>> oppLinkSet {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
+    vector <shared_ptr<BoardObjects>> oppLinkSet {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
     int abilitiesLeft = 5;
     
     public:
@@ -27,10 +27,11 @@ class Player{
     map<char, int> getAbilityCount();
     vector <shared_ptr<BoardObjects>> getSet();
     void setSet(int i, shared_ptr<BoardObjects> l);
-    vector <shared_ptr<Link>> getOppLinkSet();
-    void showAbilities();
+    vector <shared_ptr<BoardObjects>> getOppLinkSet();
+    void setOppLinkSet(int i, shared_ptr<BoardObjects> l);
     
-
+    void showAbilities();
+    void killLink(int i);
     void incData();
     void incVirus();
     int getData();

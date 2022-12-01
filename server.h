@@ -15,6 +15,8 @@ class Server: public BoardObjects{
     Server(char c, int x, int y, int owner);
     char getType() override;
     int getStrength() override;
+    bool isAlive() override;
+    void kill() override;
 
 
 };

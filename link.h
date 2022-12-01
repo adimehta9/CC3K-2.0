@@ -12,7 +12,9 @@ class Link: public BoardObjects{
     protected:
     int strength;
     int spaces = 1;
+    bool alive = true;
     vector <shared_ptr<BoardObjects>> others;
+
 
 
     public:

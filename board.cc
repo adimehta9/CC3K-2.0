@@ -122,6 +122,7 @@ void Board::showBoard() {
   }
 }
 
+// p downloads l
 void Board::download(shared_ptr<BoardObjects> l, shared_ptr<Player> p){
   if(l->getType() == 'V'){
     p->incVirus();
@@ -133,22 +134,30 @@ void Board::download(shared_ptr<BoardObjects> l, shared_ptr<Player> p){
 shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> op, shared_ptr<BoardObjects> l){
   vector<shared_ptr<BoardObjects>> v = op->getSet();
   for(auto i: v){
-    if(l->getX() == i->getX() && l->getY() == i->getY()){
-      if(i->getType() == 'S'){
-        cout << "Owner of i downloads l" << endl;
-        download(l, op);
-        p->setSet(tolower(l->getC())-'a', nullptr);
-        return op;
-      } else if (l->getStrength() >= i->getStrength()){
-        cout << "Owner of l downloads i" << endl;
-        download(i, p);
-        op->setSet(tolower(l->getC())-'a', nullptr);
-        return p;
-      } else {
-        cout << "Owner of i downloads l 2" << endl;
-        download(l, op);
-        p->setSet(tolower(l->getC())-'a', nullptr);
-        return op;
+    if(i->isAlive()){
+      if(l->getX() == i->getX() && l->getY() == i->getY()){
+        if(i->getType() == 'S'){
+          download(l, op);
+          /* p->setSet(tolower(l->getC())-'a', nullptr); */
+          p->killLink(tolower(l->getC())-'a');
+          p->setOppLinkSet(tolower(l->getC())-'a', i);
+          op->setOppLinkSet(tolower(l->getC())-'a', l);
+          return op;
+        } else if (l->getStrength() >= i->getStrength()){
+          download(i, p);
+          /* op->setSet(tolower(l->getC())-'a', nullptr); */
+          op->killLink(tolower(l->getC())-'a');
+          p->setOppLinkSet(tolower(l->getC())-'a', i);
+          op->setOppLinkSet(tolower(l->getC())-'a', l);
+          return p;
+        } else {
+          download(l, op);
+          /* p->setSet(tolower(l->getC())-'a', nullptr); */
+          p->killLink(tolower(l->getC())-'a');
+          p->setOppLinkSet(tolower(l->getC())-'a', i);
+          op->setOppLinkSet(tolower(l->getC())-'a', l);
+          return op;
+        }
       }
     }
   }
@@ -178,6 +187,7 @@ void Board::move(char l, string dir) {
     b->setC(l);
 
     shared_ptr<Player> winner = battleCheck(p, op, b);
+    
 
     if(winner == nullptr || winner == p){
       dis->notify(b);
@@ -190,6 +200,7 @@ void Board::move(char l, string dir) {
     cout << endl;
 
     one_turn = !one_turn;
+    
     showBoard();
 
 

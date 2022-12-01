@@ -14,6 +14,8 @@ class Data: public Link{
     void move(string) override;
     void add(shared_ptr<BoardObjects>);
     vector <shared_ptr<BoardObjects>> getOthers();
+    bool isAlive() override;
+    void kill() override;
 
 };
 

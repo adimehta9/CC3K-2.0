@@ -70,7 +70,7 @@ void Player::setSet(int i, shared_ptr<BoardObjects> l){
     set[i] = l;
 }
 
-vector <shared_ptr<Link>> Player::getOppLinkSet() {
+vector <shared_ptr<BoardObjects>> Player::getOppLinkSet() {
     return oppLinkSet;
 }
 
@@ -103,3 +103,11 @@ void Player::move(char l, string dir){
 void Player::incData() { dd += 1; }
     
 void Player::incVirus() { vd += 1; }
+
+void Player::killLink(int i){
+    set[i]->kill();
+}
+
+void Player::setOppLinkSet(int i, shared_ptr<BoardObjects> l){
+    oppLinkSet[i] = l;
+}

@@ -14,3 +14,7 @@ void Data::move(string dir) { Link::move(dir); }
 void Data::add(shared_ptr<BoardObjects> o){ Link::add(o); }
 
 vector <shared_ptr<BoardObjects>> Data::getOthers() { return Link::others; }
+
+bool Data::isAlive(){ return Link::alive; }
+
+void Data::kill() { Link::alive = false; }

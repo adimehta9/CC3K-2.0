@@ -16,3 +16,7 @@ void Virus::add(shared_ptr<BoardObjects> o){ Link::add(o); }
 vector <shared_ptr<BoardObjects>> Virus::getOthers(){
     return Link::others;
 }
+
+bool Virus::isAlive() { return Link::alive; }
+
+void Virus::kill() { Link::alive = false; }
