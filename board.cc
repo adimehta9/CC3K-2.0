@@ -166,21 +166,23 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
 
 void Board::move(char l, string dir) {
 
-  try {
-    char temp = tolower(l);
-    shared_ptr<Player> p;
-    shared_ptr<Player> op;
-    if (one_turn) {
-      p = one;
-      op = two;
-      l = temp;
-    } else {
-      p = two;
-      op = one;
-      l = toupper(l);
-    }
+  
+  char temp = tolower(l);
+  shared_ptr<Player> p;
+  shared_ptr<Player> op;
+  if (one_turn) {
+    p = one;
+    op = two;
+    l = temp;
+  } else {
+    p = two;
+    op = one;
+    l = toupper(l);
+  }
 
-    shared_ptr<BoardObjects> b = p->getSet()[temp - 'a'];
+  shared_ptr<BoardObjects> b = p->getSet()[temp - 'a'];
+    
+  try {
     if(b->isAlive() == false){
       throw exception();
     }
@@ -208,6 +210,8 @@ void Board::move(char l, string dir) {
 
 
   } catch (exception &e){
+    b->setC(l);
+    dis->notify(b);
     cout << endl << "Invalid Move" << endl;
     cout << "Try again s" << endl << endl;
   }

@@ -7,8 +7,6 @@
 #include <memory>
 #include <string>
 #include "link.h"
-#include "data.h"
-#include "virus.h"
 #include "server.h"
 #include "boardObjects.h"
 using namespace std;

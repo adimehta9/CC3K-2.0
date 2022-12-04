@@ -14,7 +14,7 @@ class Board{
     shared_ptr<Player> two;
     shared_ptr<Display> dis;
     bool one_turn = true;
-    Graphics graph;
+    shared_ptr<Graphics> graph;
     bool graphics;
     
     public:

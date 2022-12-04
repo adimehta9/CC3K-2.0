@@ -24,13 +24,9 @@ Player::Player(int player, map<char, int> abilityCount, string linkString): play
 
     while (iss >> type){
         iss >> strength;
-        if(type == 'D'){
-            if(y==3 || y==4) set.emplace_back(make_shared<Data>(static_cast<char>(c+y), x+diff, y, player, strength));    
-            else set.emplace_back(make_shared<Data>(static_cast<char>(c+y), x, y, player, strength));
-        } else if (type == 'V'){    
-            if(y==3 || y==4) set.emplace_back(make_shared<Virus>(static_cast<char>(c+y), x+diff, y, player, strength));
-            else set.emplace_back(make_shared<Virus>(static_cast<char>(c+y), x, y, player, strength));
-        }
+        if(y == 3 || y == 4) set.emplace_back(make_shared<Link>(static_cast<char>(c+y), x+diff, y, player, type, strength));
+        else set.emplace_back(make_shared<Link>(static_cast<char>(c+y), x, y, player, type, strength));
+        
         y++;
     }
 

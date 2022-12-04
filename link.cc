@@ -6,7 +6,9 @@
 using namespace std;
 
 
-Link::Link(char c, int x, int y, int owner, int strength): BoardObjects{c, x, y, owner}, strength{strength} {}
+Link::Link(char c, int x, int y, int owner, char type, int strength): BoardObjects{c, x, y, owner}, type{type}, strength{strength} {}
+
+char Link::getType() { return type; }
 
 int Link::getStrength() { return strength; }
 
@@ -79,3 +81,7 @@ void Link::add(shared_ptr<BoardObjects> o){
 vector <shared_ptr<BoardObjects>> Link::getOthers(){
     return others;
 }
+
+bool Link::isAlive() { return alive; }
+
+void Link::kill() { alive = false; }
