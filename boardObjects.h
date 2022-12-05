@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include "abilities.h"
 using namespace std;
 
 class BoardObjects{
@@ -30,6 +31,9 @@ class BoardObjects{
     virtual void which();
     virtual void kill() = 0;
     virtual bool isAlive() = 0;
+
+    /* virtual void abilityBy(Abilities & a) = 0; */
+    virtual void abilityBy(shared_ptr<Abilities>) = 0;
 
 };
 

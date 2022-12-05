@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "abilities.h"
 #include "boardObjects.h"
 using namespace std;
 
@@ -26,10 +27,16 @@ class Link: public BoardObjects{
     void move(string) override;
     void which() override;
     int getSpaces();
+    void setSpaces(int i);
     virtual void add(shared_ptr<BoardObjects>) override;
     vector <shared_ptr<BoardObjects>> getOthers() override;
     bool isAlive() override;
     void kill() override;
+
+
+    void abilityBy(shared_ptr<Abilities> a) override;
+    
+
 };
 
 

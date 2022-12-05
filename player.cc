@@ -1,9 +1,10 @@
 #include "player.h"
 
+
 using namespace std;
 
 
-Player::Player(int player, map<char, int> abilityCount, string linkString): player{player}, abilityCount{abilityCount} { 
+Player::Player(int player, map<char, int> abilityCount, string linkString, map<char, shared_ptr<Abilities>> a): player{player}, abilityCount{abilityCount}, abil{a} { 
     istringstream iss{linkString};
     char type;
     int strength;

@@ -1,6 +1,4 @@
 #include "board.h"
-#include "display.h"
-#include "player.h"
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -8,6 +6,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "abilities.h"
+#include "linkBoost.h"
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
   map<char, int> abilityCount2{
       {'L', 1}, {'F', 1}, {'D', 1}, {'S', 1}, {'P', 1}};
   bool graphics = false;
+  map<char, shared_ptr<Abilities>> abil1 {{'L', make_shared<LinkBoost>()}};
+  map<char, shared_ptr<Abilities>> abil2 {{'L', make_shared<LinkBoost>()}};
 
   // randomize link1 and link 2
   vector<string> all_links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
@@ -57,8 +59,6 @@ int main(int argc, char *argv[]) {
       while (iss >> abil) {
         abilityCount1[abil] = abilityCount1[abil] + 1;
 
-        /* cout << abil << " is " << repeat[abil] << endl; */
-
         if (abilityCount1[abil] > 2) {
           cout << "Cannot have more than 2 of same ability" << endl;
           return 1; // change to exception handling later
@@ -94,9 +94,11 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  shared_ptr<Player> one = make_shared<Player>(1, abilityCount1, link1);
-  shared_ptr<Player> two = make_shared<Player>(2, abilityCount2, link2);
+  shared_ptr<Player> one = make_shared<Player>(1, abilityCount1, link1, abil1);
+  shared_ptr<Player> two = make_shared<Player>(2, abilityCount2, link2, abil2);
   shared_ptr<Board> board = make_shared<Board>(one, two, graphics);
+
+  one->getSet()[0]->abilityBy(make_shared<LinkBoost>());
 
   board->showBoard();
 

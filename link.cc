@@ -14,6 +14,8 @@ int Link::getStrength() { return strength; }
 
 int Link::getSpaces() { return spaces; }
 
+void Link::setSpaces(int i) { spaces = i; }
+
 void Link::move(string dir){
     bool p_one = false;
     if(BoardObjects::getOwner() == 1){
@@ -85,3 +87,6 @@ vector <shared_ptr<BoardObjects>> Link::getOthers(){
 bool Link::isAlive() { return alive; }
 
 void Link::kill() { alive = false; }
+
+void Link::abilityBy(shared_ptr<Abilities> a) { a->useAbility(*this); }
+
