@@ -1,15 +1,14 @@
-#ifndef LINKBOOST__H
-#define LINKBOOST__H
+#ifndef SCAN__H
+#define SCAN__H
 
 #include "abilities.h"
 #include "player.h"
-#include "boardObjects.h"
 using namespace std;
 
-class LinkBoost: public Abilities{
+class Scan: public Abilities{
     
     public:
-    LinkBoost();
+    Scan();
     virtual void useAbility(Player & b) override;
 };
 

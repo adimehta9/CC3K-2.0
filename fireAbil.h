@@ -1,15 +1,14 @@
-#ifndef LINKBOOST__H
-#define LINKBOOST__H
+#ifndef FIREABIL__H
+#define FIREABIL__H
 
 #include "abilities.h"
 #include "player.h"
-#include "boardObjects.h"
 using namespace std;
 
-class LinkBoost: public Abilities{
+class FireAbil: public Abilities{
     
     public:
-    LinkBoost();
+    FireAbil();
     virtual void useAbility(Player & b) override;
 };
 

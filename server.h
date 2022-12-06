@@ -19,8 +19,6 @@ class Server: public BoardObjects{
     void kill() override;
     vector <shared_ptr<BoardObjects>> getOthers() override;
 
-    void abilityBy(shared_ptr<Abilities> a) override;
-
 };
 
 

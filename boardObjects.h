@@ -17,6 +17,7 @@ class BoardObjects{
     public:
     BoardObjects(char c, int x, int y, int owner);
     virtual char getType() = 0;
+    virtual void setType(char c);
     virtual int getStrength() = 0;
     virtual void move(string);
     int getC();
@@ -31,9 +32,7 @@ class BoardObjects{
     virtual void which();
     virtual void kill() = 0;
     virtual bool isAlive() = 0;
-
-    /* virtual void abilityBy(Abilities & a) = 0; */
-    virtual void abilityBy(shared_ptr<Abilities>) = 0;
+    virtual void setSpaces(int i);
 
 };
 

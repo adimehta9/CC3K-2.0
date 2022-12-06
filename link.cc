@@ -10,6 +10,9 @@ Link::Link(char c, int x, int y, int owner, char type, int strength): BoardObjec
 
 char Link::getType() { return type; }
 
+void Link::setType(char c) { type = c; }
+
+
 int Link::getStrength() { return strength; }
 
 int Link::getSpaces() { return spaces; }
@@ -88,5 +91,4 @@ bool Link::isAlive() { return alive; }
 
 void Link::kill() { alive = false; }
 
-void Link::abilityBy(shared_ptr<Abilities> a) { a->useAbility(*this); }
 

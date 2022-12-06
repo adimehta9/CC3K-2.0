@@ -3,17 +3,15 @@
 
 /* #include "link.h" */
 #include <memory>
+#include <iostream> 
 using namespace std;
 
-class Link;
+class Player;
 
 class Abilities{
     
     public:
-    
-    virtual void useAbility(Link & l) = 0;
-    /* virtual void useAbility(shared_ptr<Firewall> b) = 0; */
-
+    virtual void useAbility(Player & p) = 0;
 
 };
 

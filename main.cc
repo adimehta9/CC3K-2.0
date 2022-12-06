@@ -8,6 +8,10 @@
 #include <vector>
 #include "abilities.h"
 #include "linkBoost.h"
+#include "fireAbil.h"
+#include "download.h"
+#include "polarize.h"
+#include "scan.h"
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -21,8 +25,9 @@ int main(int argc, char *argv[]) {
   map<char, int> abilityCount2{
       {'L', 1}, {'F', 1}, {'D', 1}, {'S', 1}, {'P', 1}};
   bool graphics = false;
-  map<char, shared_ptr<Abilities>> abil1 {{'L', make_shared<LinkBoost>()}};
-  map<char, shared_ptr<Abilities>> abil2 {{'L', make_shared<LinkBoost>()}};
+  map<char, shared_ptr<Abilities>> abil1 {{'L', make_shared<LinkBoost>()}, {'F', make_shared<FireAbil>()}, {'D', make_shared<Download>()}, {'S', make_shared<Scan>()}, {'P', make_shared<Polarize>()}};
+  map<char, shared_ptr<Abilities>> abil2 {{'L', make_shared<LinkBoost>()}, {'F', make_shared<FireAbil>()}, {'D', make_shared<Download>()}, {'S', make_shared<Scan>()}, {'P', make_shared<Polarize>()}};
+  
 
   // randomize link1 and link 2
   vector<string> all_links = {"D1", "D2", "D3", "D4", "V1", "V2", "V3", "V4"};
@@ -51,6 +56,7 @@ int main(int argc, char *argv[]) {
     cur = argv[i];
     if (cur == "-ability1") {
       abilityCount1.clear();
+      abil1.clear();
       i++;
       ability1 = argv[i];
       istringstream iss{ability1};
@@ -58,6 +64,20 @@ int main(int argc, char *argv[]) {
 
       while (iss >> abil) {
         abilityCount1[abil] = abilityCount1[abil] + 1;
+        
+        if(abil1.find(abil) == abil1.end()){
+          if(abil == 'L'){
+            abil1[abil] = make_shared<LinkBoost>();
+          } else if (abil == 'F'){
+            abil1[abil] = make_shared<FireAbil>();
+          } else if (abil == 'D'){
+            abil1[abil] = make_shared<Download>();
+          } else if (abil == 'P'){
+            abil1[abil] = make_shared<Polarize>();
+          } else if (abil == 'S'){
+            abil1[abil] = make_shared<Scan>();
+          }
+        }
 
         if (abilityCount1[abil] > 2) {
           cout << "Cannot have more than 2 of same ability" << endl;
@@ -66,6 +86,7 @@ int main(int argc, char *argv[]) {
       }
     } else if (cur == "-ability2") {
       abilityCount2.clear();
+      abil2.clear();
       i++;
       ability2 = argv[i];
       istringstream iss{ability2};
@@ -73,6 +94,20 @@ int main(int argc, char *argv[]) {
 
       while (iss >> abil) {
         abilityCount2[abil] = abilityCount2[abil] + 1;
+
+        if(abil1.find(abil) == abil1.end()){
+          if(abil == 'L'){
+            abil2[abil] = make_shared<LinkBoost>();
+          } else if (abil == 'F'){
+            abil2[abil] = make_shared<FireAbil>();
+          } else if (abil == 'D'){
+            abil2[abil] = make_shared<Download>();
+          } else if (abil == 'P'){
+            abil2[abil] = make_shared<Polarize>();
+          } else if (abil == 'S'){
+            abil2[abil] = make_shared<Scan>();
+          }
+        }
 
         if (abilityCount2[abil] > 2) {
           cout << "Cannot have more than 2 of same ability" << endl;
@@ -98,12 +133,10 @@ int main(int argc, char *argv[]) {
   shared_ptr<Player> two = make_shared<Player>(2, abilityCount2, link2, abil2);
   shared_ptr<Board> board = make_shared<Board>(one, two, graphics);
 
-  one->getSet()[0]->abilityBy(make_shared<LinkBoost>());
-
   board->showBoard();
-
-  while (getline(cin, cur)) {
-    istringstream iss{cur};
+  string l;
+  while (getline(cin, l)) {
+    istringstream iss{l};
     iss >> cur;
     if (cur == "move") {
       char l;
@@ -118,7 +151,7 @@ int main(int argc, char *argv[]) {
       cout << endl;
 
     } else if (cur == "ability") {
-
+      board->ability(l);
     } else if (cur == "board") {
       cout << endl;
       board->showBoard();
@@ -131,7 +164,7 @@ int main(int argc, char *argv[]) {
     } else{
       cout << endl;
       cout << "Invalid Movoe" << endl;
-      cout << "Try Again a" << endl;
+      cout << "Try Again" << endl;
       cout << endl;
     }
   }

@@ -21,20 +21,17 @@ class Link: public BoardObjects{
 
     public:
     Link(char c, int x, int y, int owner, char type, int strength);
-    /* virtual char getType() = 0; */
     virtual char getType() override;
+    virtual void setType(char c) override;
     int getStrength() override;
     void move(string) override;
     void which() override;
     int getSpaces();
-    void setSpaces(int i);
+    void setSpaces(int i) override;
     virtual void add(shared_ptr<BoardObjects>) override;
     vector <shared_ptr<BoardObjects>> getOthers() override;
     bool isAlive() override;
     void kill() override;
-
-
-    void abilityBy(shared_ptr<Abilities> a) override;
     
 
 };

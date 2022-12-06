@@ -23,5 +23,3 @@ vector <shared_ptr<BoardObjects>> Server::getOthers(){
     vector <shared_ptr<BoardObjects>> v;
     return v;
 }
-
-void Server::abilityBy(shared_ptr<Abilities> a) { }

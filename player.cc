@@ -58,6 +58,10 @@ map<char, int> Player::getAbilityCount(){
     return abilityCount;
 }
 
+void Player::setAbilityCount(char c, int i){
+    abilityCount[c] = i;
+}
+
 
 vector <shared_ptr<BoardObjects>> Player::getSet(){
     return set;
@@ -105,6 +109,14 @@ void Player::killLink(int i){
     set[i]->kill();
 }
 
-void Player::setOppLinkSet(int i, shared_ptr<BoardObjects> l){
-    oppLinkSet[i] = l;
+void Player::setOppLinkSet(int i, shared_ptr<BoardObjects> l){ oppLinkSet[i] = l; }
+
+shared_ptr<BoardObjects> Player::getAb() { return abObj; }
+
+void Player::setAb(shared_ptr<BoardObjects> a) { abObj = a; }
+
+void Player::abilUsedBy(shared_ptr<Abilities> a) {
+    a->useAbility(*this);
 }
+
+shared_ptr<Abilities> Player::getAbility(char c) { return abil[c]; }

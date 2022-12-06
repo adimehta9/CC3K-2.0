@@ -22,4 +22,7 @@ void BoardObjects::which() { cout << "Board" << endl; }
 
 void BoardObjects::add(shared_ptr<BoardObjects>) { }
 
+void BoardObjects::setType(char c) { }
 /* vector <shared_ptr<BoardObjects>> BoardObjects::getOthers() {  } */
+
+void BoardObjects::setSpaces(int i) { }

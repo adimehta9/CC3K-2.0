@@ -2,6 +2,7 @@
 #include <exception>
 #include <iostream>
 #include <memory>
+#include <sstream>
 using namespace std;
 
 Board::Board(shared_ptr<Player> one, shared_ptr<Player> two, bool graphics)
@@ -205,9 +206,8 @@ void Board::move(char l, string dir) {
     cout << endl;
 
     one_turn = !one_turn;
-    
+    ability_used = false;
     showBoard();
-
 
   } catch (exception &e){
     b->setC(l);
@@ -227,3 +227,48 @@ void Board::showAbilities() {
     two->showAbilities();
   }
 }
+
+
+void Board::ability(string l) {
+  istringstream iss{l};
+  char a;
+  char link;
+  shared_ptr<Player> p = one;
+  if(!one_turn) { p = two; }
+  iss >> l; // skip "abilities"
+  iss >> a;
+
+  try{
+    if(ability_used || p->getAbilityCount().find(a) == p->getAbilityCount().end() || p->getAbilityCount()[a] == 0){
+      throw exception();
+    }
+  
+    ability_used = true;
+    if(a == 'L'){
+      iss >> link;
+      p->setAb(p->getSet()[tolower(link)-'a']);
+      p->abilUsedBy(p->getAbility(a));
+      p->setAbilityCount(a, p->getAbilityCount()[a]-1);
+
+    } else if (a == 'F'){
+      cout << l << endl;
+    } else if (a == 'D'){
+      cout << l << endl;
+    } else if (a == 'S'){
+      cout << l << endl;
+    } else if (a == 'P'){
+      cout << l << endl;
+    }
+
+  } catch (exception &e){
+    cout << endl; 
+    cout << "Invalid Ability Use" << endl;
+    cout << "Try again" << endl;
+    cout << endl;
+  }
+
+
+
+}
+
+
