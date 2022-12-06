@@ -8,5 +8,6 @@ void Download::useAbility(Player & p){
     } else{
         p.incData();
     }
-    p.setOppLinkSet(tolower(p.getAb()->getC())-'a', p.getAb());
+    p.getAb()->kill();
+    p.getAb()->setC('.');
 }

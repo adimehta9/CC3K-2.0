@@ -165,6 +165,9 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
   return nullptr;
 }
 
+class Dead { };
+
+
 void Board::move(char l, string dir) {
 
   
@@ -185,7 +188,7 @@ void Board::move(char l, string dir) {
     
   try {
     if(b->isAlive() == false){
-      throw exception();
+      throw Dead();
     }
     b->setC('.');
     dis->notify(b);
@@ -199,10 +202,6 @@ void Board::move(char l, string dir) {
       dis->notify(b);
     }
 
-    /* for(auto i: two->getSet()){
-      if(i == nullptr){ cout << "Hi" << endl; } 
-      else cout << i->getType();
-    } */
     cout << endl;
 
     one_turn = !one_turn;
@@ -213,7 +212,10 @@ void Board::move(char l, string dir) {
     b->setC(l);
     dis->notify(b);
     cout << endl << "Invalid Move" << endl;
-    cout << "Try again s" << endl << endl;
+    cout << "Try again" << endl << endl;
+  } catch (Dead &d){
+    cout << "Link is dead" << endl;
+    cout << "Try Again" << endl << endl;
   }
 }
 
@@ -234,7 +236,8 @@ void Board::ability(string l) {
   char a;
   char link;
   shared_ptr<Player> p = one;
-  if(!one_turn) { p = two; }
+  shared_ptr<Player> opp = two;
+  if(!one_turn) { p = two; opp = one; }
   iss >> l; // skip "abilities"
   iss >> a;
 
@@ -253,12 +256,29 @@ void Board::ability(string l) {
     } else if (a == 'F'){
       cout << l << endl;
     } else if (a == 'D'){
-      cout << l << endl;
+      iss >> link;
+      if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
+      else p->setAb(two->getSet()[tolower(link)-'a']);
+
+      if(p->getPlayer() == p->getAb()->getOwner()) {
+        opp->setOppLinkSet(tolower(p->getAb()->getC())-'a', p->getAb());
+      } else{
+        p->setOppLinkSet(tolower(p->getAb()->getC())-'a', p->getAb());
+      }
+
+      p->abilUsedBy(p->getAbility(a));
+      p->setAbilityCount(a, p->getAbilityCount()[a]-1);
+
+      dis->notify(p->getAb());
+
+
     } else if (a == 'S'){
       cout << l << endl;
     } else if (a == 'P'){
       cout << l << endl;
     }
+
+    cout << endl << "Ability Successful" << endl << endl;
 
   } catch (exception &e){
     cout << endl; 

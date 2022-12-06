@@ -27,8 +27,10 @@ void Link::move(string dir){
 
     if(dir == "up"){
         for(auto i: others){
-            if(getX() - spaces == i->getX() && getY() == i->getY()){
-                throw exception();
+            if(i->isAlive()) {
+                if(getX() - spaces == i->getX() && getY() == i->getY()){
+                    throw exception();
+                }
             }
         } 
         
@@ -40,8 +42,10 @@ void Link::move(string dir){
         BoardObjects::setX(BoardObjects::getX() - spaces);
     } else if(dir == "right"){
         for(auto i: others){
-            if(getX() == i->getX() && getY() + spaces == i->getY()){
-                throw exception();
+            if(i->isAlive()) {
+                if(getX() == i->getX() && getY() + spaces == i->getY()){
+                    throw exception();
+                }
             }
         }
 
@@ -50,8 +54,10 @@ void Link::move(string dir){
 
     } else if (dir == "left"){
         for(auto i: others){
-            if(getX() == i->getX() && getY() - spaces == i->getY()){
-                throw exception();
+            if(i->isAlive()) {
+                if(getX() == i->getX() && getY() - spaces == i->getY()){
+                    throw exception();
+                }
             }
         }
 
@@ -59,8 +65,10 @@ void Link::move(string dir){
         BoardObjects::setY(BoardObjects::getY() - spaces);
     } else if (dir == "down"){
         for(auto i: others){
-            if(getX() + spaces == i->getX() && getY() == i->getY()){
-                throw exception();
+            if(i->isAlive()) {
+                if(getX() + spaces == i->getX() && getY() == i->getY()){
+                    throw exception();
+                }
             }
         }
 

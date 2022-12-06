@@ -34,7 +34,7 @@ class Player{
     void showAbilities();
     shared_ptr<BoardObjects> getAb();
     void setAb(shared_ptr<BoardObjects>);
-    
+    int getPlayer();
     void killLink(int i);
     void incData();
     void incVirus();
