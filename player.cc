@@ -76,7 +76,7 @@ vector <shared_ptr<BoardObjects>> Player::getOppLinkSet() {
 }
 
 void Player::showAbilities(){
-    map <char, string> abilityDict { {'L', "Link Boost"}, { 'F', "Firewall" }, { 'D', "Download"}, {'S', "Scan"}, {'P', "Polarize"} };
+    map <char, string> abilityDict { {'L', "Link Boost"}, { 'F', "Firewall" }, { 'D', "Download"}, {'S', "Scan"}, {'P', "Polarize"}, {'I', "Increase Strength"} };
 
     for(auto i: abilityCount){
         cout << "| " << abilityDict[i.first] << " " << i.second << " | ";

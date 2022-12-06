@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "abilities.h"
+#include "incStren.h"
 #include "linkBoost.h"
 #include "fireAbil.h"
 #include "download.h"
@@ -76,6 +77,8 @@ int main(int argc, char *argv[]) {
             abil1[abil] = make_shared<Polarize>();
           } else if (abil == 'S'){
             abil1[abil] = make_shared<Scan>();
+          } else if (abil == 'I'){
+            abil1[abil] = make_shared<IncStren>();
           }
         }
 
@@ -106,6 +109,8 @@ int main(int argc, char *argv[]) {
             abil2[abil] = make_shared<Polarize>();
           } else if (abil == 'S'){
             abil2[abil] = make_shared<Scan>();
+          } else if (abil == 'I'){
+            abil2[abil] = make_shared<IncStren>();
           }
         }
 

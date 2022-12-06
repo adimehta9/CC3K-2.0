@@ -19,6 +19,7 @@ class BoardObjects{
     virtual char getType() = 0;
     virtual void setType(char c);
     virtual int getStrength() = 0;
+    virtual void setStrength(int i) = 0;
     virtual void move(string);
     int getC();
     void setC(char c);

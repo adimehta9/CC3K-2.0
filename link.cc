@@ -106,4 +106,5 @@ bool Link::isAlive() { return alive; }
 
 void Link::kill() { alive = false; }
 
+void Link::setStrength(int i) { strength = i; }
 

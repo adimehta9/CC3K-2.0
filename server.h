@@ -15,6 +15,7 @@ class Server: public BoardObjects{
     Server(char c, int x, int y, int owner);
     char getType() override;
     int getStrength() override;
+    void setStrength(int i) override;
     bool isAlive() override;
     void kill() override;
     vector <shared_ptr<BoardObjects>> getOthers() override;

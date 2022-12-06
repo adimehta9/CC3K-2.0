@@ -26,6 +26,7 @@ class Link: public BoardObjects{
     virtual char getType() override;
     virtual void setType(char c) override;
     int getStrength() override;
+    void setStrength(int i) override;
     void move(string) override;
     void which() override;
     int getSpaces();

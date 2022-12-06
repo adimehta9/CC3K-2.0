@@ -13,6 +13,8 @@ int Server::getStrength() {
     return 0;
 }
 
+void Server::setStrength(int i) { }
+
 bool Server::isAlive() {
     return true;
 }

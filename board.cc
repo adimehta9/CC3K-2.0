@@ -166,9 +166,6 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
   return nullptr;
 }
 
-
-
-
 void Board::move(char l, string dir) {
 
   
@@ -293,6 +290,10 @@ void Board::ability(string l) {
     
     
     } else if (a == 'P'){
+      if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
+      else p->setAb(two->getSet()[tolower(link)-'a']);
+      p->abilUsedBy(p->getAbility(a));
+    } else if (a == 'I'){
       if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
       else p->setAb(two->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
