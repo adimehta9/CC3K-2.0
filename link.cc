@@ -1,5 +1,6 @@
 #include "link.h"
 #include "boardObjects.h"
+#include "download.h"
 #include <exception>
 #include <functional>
 #include <iostream>
@@ -32,11 +33,15 @@ void Link::move(string dir){
                     throw exception();
                 }
             }
-        } 
+        }
         
         if(p_one){
             if(BoardObjects::getX()-spaces < 0){
                 throw exception();
+            }
+        } else if(!p_one){
+            if(BoardObjects::getX() - spaces < 0){
+                throw Dd();
             }
         }
         BoardObjects::setX(BoardObjects::getX() - spaces);
@@ -76,6 +81,8 @@ void Link::move(string dir){
             if(BoardObjects::getX() + spaces > 7){
                 throw exception();
             }
+        } else if (BoardObjects::getX() + spaces > 7){
+            throw Dd();
         }
         BoardObjects::setX(BoardObjects::getX() + spaces);
     } else {

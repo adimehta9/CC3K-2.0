@@ -9,6 +9,8 @@
 #include "boardObjects.h"
 using namespace std;
 
+class Dd{ };
+
 class Link: public BoardObjects{
     protected:
     char type;

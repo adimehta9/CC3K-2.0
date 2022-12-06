@@ -130,6 +130,7 @@ void Board::download(shared_ptr<BoardObjects> l, shared_ptr<Player> p){
   } else if (l->getType() == 'D'){
     p->incData();
   }
+  l->kill();
 }
 
 shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> op, shared_ptr<BoardObjects> l){
@@ -165,7 +166,7 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
   return nullptr;
 }
 
-class Dead { };
+
 
 
 void Board::move(char l, string dir) {
@@ -220,8 +221,17 @@ void Board::move(char l, string dir) {
     cout << endl << "Invalid Move" << endl;
     cout << "Try again" << endl << endl;
   } catch (Dead &d){
-    cout << "Link is dead" << endl;
+    cout << endl << "Link is dead" << endl;
     cout << "Try Again" << endl << endl;
+  } catch (Dd &d){
+    download(p->getSet()[temp-'a'], p);
+    op->setOppLinkSet(temp-'a', p->getSet()[temp-'a']);
+    one_turn = !one_turn;
+    ability_used = false;
+    showBoard();
+
+    int num = win();
+    if(num != 0) throw Winner(num);
   }
 }
 

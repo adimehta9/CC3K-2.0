@@ -16,6 +16,9 @@ class Winner {
   int getNum() { return num; }
 };
 
+class Dead { };
+
+
 class Board{
     shared_ptr<Player> one;
     shared_ptr<Player> two;
