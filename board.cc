@@ -196,6 +196,7 @@ void Board::move(char l, string dir) {
     b->setC(l);
 
     shared_ptr<Player> winner = battleCheck(p, op, b);
+
     
 
     if(winner == nullptr || winner == p){
@@ -207,6 +208,11 @@ void Board::move(char l, string dir) {
     one_turn = !one_turn;
     ability_used = false;
     showBoard();
+
+    int num = win();
+    if(num != 0) throw Winner(num);
+
+
 
   } catch (exception &e){
     b->setC(l);
@@ -240,6 +246,7 @@ void Board::ability(string l) {
   if(!one_turn) { p = two; opp = one; }
   iss >> l; // skip "abilities"
   iss >> a;
+  iss >> link;
 
   try{
     if(ability_used || p->getAbilityCount().find(a) == p->getAbilityCount().end() || p->getAbilityCount()[a] == 0){
@@ -248,47 +255,59 @@ void Board::ability(string l) {
   
     ability_used = true;
     if(a == 'L'){
-      iss >> link;
       p->setAb(p->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
-      p->setAbilityCount(a, p->getAbilityCount()[a]-1);
+
 
     } else if (a == 'F'){
       cout << l << endl;
+
+
     } else if (a == 'D'){
-      iss >> link;
       if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
       else p->setAb(two->getSet()[tolower(link)-'a']);
-
+      
       if(p->getPlayer() == p->getAb()->getOwner()) {
         opp->setOppLinkSet(tolower(p->getAb()->getC())-'a', p->getAb());
       } else{
         p->setOppLinkSet(tolower(p->getAb()->getC())-'a', p->getAb());
       }
-
       p->abilUsedBy(p->getAbility(a));
-      p->setAbilityCount(a, p->getAbilityCount()[a]-1);
-
       dis->notify(p->getAb());
-
-
+    
+      int num = win();
+      if(num != 0) throw Winner(num);
     } else if (a == 'S'){
-      cout << l << endl;
+      p->setAb(opp->getSet()[tolower(link)-'a']);
+      p->abilUsedBy(p->getAbility(a));
+    
+    
     } else if (a == 'P'){
-      cout << l << endl;
+      if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
+      else p->setAb(two->getSet()[tolower(link)-'a']);
+      p->abilUsedBy(p->getAbility(a));
     }
 
-    cout << endl << "Ability Successful" << endl << endl;
-
+    p->setAbilityCount(a, p->getAbilityCount()[a]-1);
+    cout << endl;
   } catch (exception &e){
     cout << endl; 
     cout << "Invalid Ability Use" << endl;
     cout << "Try again" << endl;
     cout << endl;
   }
+}
 
 
 
+int Board::win() {
+  if(one->getData() == 4 || two->getVirus() == 4){
+    return 1;
+  } else if(two->getData() == 4 || one->getVirus() == 4){
+    return 2;
+  } else {
+    return 0;
+  }
 }
 
 

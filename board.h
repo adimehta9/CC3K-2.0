@@ -8,6 +8,13 @@
 #ifndef BOARD__H
 #define BOARD__H
 
+class Winner {
+  private:
+  int num;
+  public:
+  Winner(int num): num{num} {}
+  int getNum() { return num; }
+};
 
 class Board{
     shared_ptr<Player> one;
@@ -19,7 +26,6 @@ class Board{
     bool graphics;
     
     public:
-    
     Board(shared_ptr<Player> one, shared_ptr<Player> two, bool graphics);
     void showBoard();
     void move(char l, string dir);
@@ -27,6 +33,7 @@ class Board{
     void download(shared_ptr<BoardObjects> l, shared_ptr<Player> p);
     shared_ptr<Player> battleCheck(shared_ptr<Player> p, shared_ptr<Player> op, shared_ptr<BoardObjects> l);
     void ability(string l);
+    int win();
 };
 
 

@@ -122,3 +122,4 @@ void Player::abilUsedBy(shared_ptr<Abilities> a) {
 shared_ptr<Abilities> Player::getAbility(char c) { return abil[c]; }
 
 int Player::getPlayer() { return player; }
+

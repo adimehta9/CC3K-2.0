@@ -135,37 +135,42 @@ int main(int argc, char *argv[]) {
 
   board->showBoard();
   string l;
-  while (getline(cin, l)) {
-    istringstream iss{l};
-    iss >> cur;
-    if (cur == "move") {
-      char l;
-      string dir;
-      iss >> l;
-      iss >> dir;
-      board->move(l, dir);
-      /* one_turn = !one_turn; */
-    } else if (cur == "abilities") {
-      cout << endl;
-      board->showAbilities();
-      cout << endl;
 
-    } else if (cur == "ability") {
-      board->ability(l);
-    } else if (cur == "board") {
-      cout << endl;
-      board->showBoard();
-      cout << endl;
+  try{
+    while (getline(cin, l)) {
+      istringstream iss{l};
+      iss >> cur;
+      if (cur == "move") {
+        char l;
+        string dir;
+        iss >> l;
+        iss >> dir;
+        board->move(l, dir);
+        /* one_turn = !one_turn; */
+      } else if (cur == "abilities") {
+        cout << endl;
+        board->showAbilities();
+        cout << endl;
 
-    } else if (cur == "sequence") {
+      } else if (cur == "ability") {
+        board->ability(l);
+      } else if (cur == "board") {
+        cout << endl;
+        board->showBoard();
+        cout << endl;
 
-    } else if (cur == "quit") {
-      break;
-    } else{
-      cout << endl;
-      cout << "Invalid Movoe" << endl;
-      cout << "Try Again" << endl;
-      cout << endl;
+      } else if (cur == "sequence") {
+
+      } else if (cur == "quit") {
+        break;
+      } else{
+        cout << endl;
+        cout << "Invalid Movoe" << endl;
+        cout << "Try Again" << endl;
+        cout << endl;
+      }
     }
+  } catch(Winner &w){
+    cout << "Player " << w.getNum() << " wins!" << endl;
   }
 }
