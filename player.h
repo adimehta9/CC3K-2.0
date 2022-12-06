@@ -41,6 +41,7 @@ class Player{
     int getData();
     int getVirus();
     int getAbilitiesLeft();
+    void setAbilitiesLeft(int i);
     void move(char l, string dir);
 
     shared_ptr<Abilities> getAbility(char c);

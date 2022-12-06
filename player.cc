@@ -123,3 +123,4 @@ shared_ptr<Abilities> Player::getAbility(char c) { return abil[c]; }
 
 int Player::getPlayer() { return player; }
 
+void Player::setAbilitiesLeft(int i) { abilitiesLeft = i; }

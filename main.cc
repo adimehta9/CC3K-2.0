@@ -135,9 +135,11 @@ int main(int argc, char *argv[]) {
 
   board->showBoard();
   string l;
+  istream *in = &cin;
+  ifstream fileStream;
 
   try{
-    while (getline(cin, l)) {
+    while (getline(*in, l)) {
       istringstream iss{l};
       iss >> cur;
       if (cur == "move") {
@@ -160,7 +162,9 @@ int main(int argc, char *argv[]) {
         cout << endl;
 
       } else if (cur == "sequence") {
-
+        iss >> cur;
+        fileStream.open(cur);
+        in = &fileStream;
       } else if (cur == "quit") {
         break;
       } else{

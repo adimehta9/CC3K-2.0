@@ -262,7 +262,7 @@ void Board::ability(string l) {
     if(ability_used || p->getAbilityCount().find(a) == p->getAbilityCount().end() || p->getAbilityCount()[a] == 0){
       throw exception();
     }
-  
+    p->setAbilitiesLeft(p->getAbilitiesLeft() - 1);
     ability_used = true;
     if(a == 'L'){
       p->setAb(p->getSet()[tolower(link)-'a']);
