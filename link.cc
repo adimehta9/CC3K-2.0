@@ -30,7 +30,12 @@ void Link::move(string dir){
         for(auto i: others){
             if(i->isAlive()) {
                 if(getX() - spaces == i->getX() && getY() == i->getY()){
-                    throw exception();
+                    if(i->getType() == 'F'){
+                        onFire = true;
+                        fireC = i->getC();
+                    } else { 
+                        throw exception(); 
+                    }
                 }
             }
         }
@@ -45,34 +50,54 @@ void Link::move(string dir){
             }
         }
         BoardObjects::setX(BoardObjects::getX() - spaces);
+        onFire = false;
+
+
     } else if(dir == "right"){
         for(auto i: others){
             if(i->isAlive()) {
                 if(getX() == i->getX() && getY() + spaces == i->getY()){
-                    throw exception();
+                    if(i->getType() == 'F'){
+                        onFire = true;
+                        fireC = i->getC();
+                    } else {
+                        throw exception();
+                    }
                 }
             }
         }
 
         if(BoardObjects::getY() + spaces > 7) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() + spaces);
+        onFire = false;
 
     } else if (dir == "left"){
         for(auto i: others){
             if(i->isAlive()) {
                 if(getX() == i->getX() && getY() - spaces == i->getY()){
-                    throw exception();
+                    if(i->getType() == 'F'){
+                        onFire = true;
+                        fireC = i->getC();
+                    } else {
+                        throw exception();
+                    }
                 }
             }
         }
 
         if(BoardObjects::getY() - spaces < 0) { throw exception(); }
         BoardObjects::setY(BoardObjects::getY() - spaces);
+        onFire = false;
     } else if (dir == "down"){
         for(auto i: others){
             if(i->isAlive()) {
                 if(getX() + spaces == i->getX() && getY() == i->getY()){
-                    throw exception();
+                    if(i->getType() == 'F'){
+                        onFire = true;
+                        fireC = i->getC();
+                    } else {
+                        throw exception();
+                    }
                 }
             }
         }
@@ -85,6 +110,7 @@ void Link::move(string dir){
             throw Dd();
         }
         BoardObjects::setX(BoardObjects::getX() + spaces);
+        onFire = false;
     } else {
         throw exception();
     }
@@ -108,3 +134,10 @@ void Link::kill() { alive = false; }
 
 void Link::setStrength(int i) { strength = i; }
 
+bool Link::isOnFire() { return onFire; }
+
+void Link::setFire(bool i) { onFire = i; }
+
+char Link::getFireC() { return fireC; }
+
+void Link::setFireC(char c) { fireC = c; }

@@ -13,6 +13,8 @@ class BoardObjects{
     int x;
     int y;
     int owner;
+    int startX;
+    int startY;
 
     public:
     BoardObjects(char c, int x, int y, int owner);
@@ -35,6 +37,11 @@ class BoardObjects{
     virtual bool isAlive() = 0;
     virtual void setSpaces(int i);
 
+    virtual bool isOnFire();
+    virtual void setFire(bool);
+    virtual char getFireC();
+    virtual void setFireC(char c);
+    
 };
 
 

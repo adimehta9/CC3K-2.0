@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
       while (iss >> abil) {
         abilityCount2[abil] = abilityCount2[abil] + 1;
 
-        if(abil1.find(abil) == abil1.end()){
+        if(abil2.find(abil) == abil2.end()){
           if(abil == 'L'){
             abil2[abil] = make_shared<LinkBoost>();
           } else if (abil == 'F'){
@@ -148,11 +148,11 @@ int main(int argc, char *argv[]) {
       istringstream iss{l};
       iss >> cur;
       if (cur == "move") {
-        char l;
+        char c;
         string dir;
-        iss >> l;
+        iss >> c;
         iss >> dir;
-        board->move(l, dir);
+        board->move(c, dir);
         /* one_turn = !one_turn; */
       } else if (cur == "abilities") {
         cout << endl;

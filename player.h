@@ -9,6 +9,7 @@
 #include "abilities.h"
 #include "link.h"
 #include "server.h"
+#include "firewall.h"
 using namespace std;
 
 class Player{

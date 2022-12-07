@@ -44,8 +44,6 @@ Player::Player(int player, map<char, int> abilityCount, string linkString, map<c
         for(auto j: set){
             if(i != j){
                 i->add(j);
-                /* cout << i->getOthers()[0]->getType(); */
-                
             }
         }
     }
@@ -68,7 +66,11 @@ vector <shared_ptr<BoardObjects>> Player::getSet(){
 }
 
 void Player::setSet(int i, shared_ptr<BoardObjects> l){
-    set[i] = l;
+    if(i == -1) {
+        set.emplace_back(l);
+    } else {
+        set[i] = l;
+    }
 }
 
 vector <shared_ptr<BoardObjects>> Player::getOppLinkSet() {

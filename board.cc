@@ -36,7 +36,7 @@ void Board::showBoard() {
     int temp = 0;
 
     for (auto i : one->getSet()) {
-      if (i->getType() == 'S') {
+      if (i->getType() == 'S' || i->getType() == 'F') {
         continue;
       }
       cout << static_cast<char>('a' + temp) << ": "
@@ -103,7 +103,7 @@ void Board::showBoard() {
 
     temp = 0;
     for (auto i : two->getSet()) {
-      if (i->getType() == 'S')
+      if (i->getType() == 'S' || i->getType() == 'F')
         continue;
       cout << static_cast<char>('A' + temp) << ": "
            << static_cast<char>(i->getType()) << i->getStrength() << " ";
@@ -138,7 +138,19 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
   for(auto i: v){
     if(i->isAlive()){
       if(l->getX() == i->getX() && l->getY() == i->getY()){
-        if(i->getType() == 'S'){
+        if(i->getType() == 'F'){
+          if(l->getType() == 'V'){
+            download(l, p);
+            p->killLink(tolower(l->getC())-'a');
+            op->setOppLinkSet(tolower(l->getC())-'a', l);
+            return op;
+          } else {
+            op->setOppLinkSet(tolower(l->getC())-'a', l);
+            l->setFire(true);
+            l->setFireC(i->getC());
+          }
+          
+        } else if(i->getType() == 'S'){
           download(l, op);
           /* p->setSet(tolower(l->getC())-'a', nullptr); */
           p->killLink(tolower(l->getC())-'a');
@@ -147,13 +159,16 @@ shared_ptr<Player> Board::battleCheck(shared_ptr<Player> p, shared_ptr<Player> o
           return op;
         } else if (l->getStrength() >= i->getStrength()){
           download(i, p);
-          /* op->setSet(tolower(l->getC())-'a', nullptr); */
+          l->setFire(i->isOnFire());
+          l->setFireC(i->getFireC());
           op->killLink(tolower(l->getC())-'a');
           p->setOppLinkSet(tolower(l->getC())-'a', i);
           op->setOppLinkSet(tolower(l->getC())-'a', l);
           return p;
         } else {
           download(l, op);
+          i->setFire(l->isOnFire());
+          i->setFireC(l->getFireC());
           /* p->setSet(tolower(l->getC())-'a', nullptr); */
           p->killLink(tolower(l->getC())-'a');
           p->setOppLinkSet(tolower(l->getC())-'a', i);
@@ -188,7 +203,11 @@ void Board::move(char l, string dir) {
     if(b->isAlive() == false){
       throw Dead();
     }
-    b->setC('.');
+    if(b->isOnFire()){
+      b->setC(b->getFireC());
+    } else {
+      b->setC('.');
+    }
     dis->notify(b);
     p->move(temp, dir);
     b->setC(l);
@@ -248,12 +267,14 @@ void Board::ability(string l) {
   istringstream iss{l};
   char a;
   char link;
+  int x;
+  int y;
   shared_ptr<Player> p = one;
+  char fire = 'm';
   shared_ptr<Player> opp = two;
-  if(!one_turn) { p = two; opp = one; }
+  if(!one_turn) { p = two; opp = one; fire = 'w'; }
   iss >> l; // skip "abilities"
   iss >> a;
-  iss >> link;
 
   try{
     if(ability_used || p->getAbilityCount().find(a) == p->getAbilityCount().end() || p->getAbilityCount()[a] == 0){
@@ -262,15 +283,36 @@ void Board::ability(string l) {
     p->setAbilitiesLeft(p->getAbilitiesLeft() - 1);
     ability_used = true;
     if(a == 'L'){
+      iss >> link;
       p->setAb(p->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
 
 
     } else if (a == 'F'){
-      cout << l << endl;
+      iss >> x;
+      iss >> y;
 
+      if (x < 0 || x > 7 || y < 0 || y > 7){
+        throw exception();
+      } else {
+        for(auto i: p->getSet()){
+          if(i->getX() == x && i->getY() == y){
+            throw exception();
+          }
+        }
+        for(auto i: opp->getSet()){
+          if(i->getX() == x && i->getY() == y){
+            throw exception();
+          }
+        }
+      }
 
+      p->setAb(make_shared<Firewall>(fire, x, y, p->getPlayer()));
+      p->abilUsedBy(p->getAbility(a));
+      dis->notify(p->getAb());
+      showBoard();
     } else if (a == 'D'){
+      iss >> link;
       if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
       else p->setAb(two->getSet()[tolower(link)-'a']);
       
@@ -281,22 +323,27 @@ void Board::ability(string l) {
       }
       p->abilUsedBy(p->getAbility(a));
       dis->notify(p->getAb());
-    
+      showBoard();
       int num = win();
       if(num != 0) throw Winner(num);
     } else if (a == 'S'){
+      iss >> link;
       p->setAb(opp->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
-    
+      showBoard();
     
     } else if (a == 'P'){
+      iss >> link;
       if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
       else p->setAb(two->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
+      showBoard();
     } else if (a == 'I'){
+      iss >> link;
       if(link >= 'a' && link <= 'h') p->setAb(one->getSet()[tolower(link)-'a']);
       else p->setAb(two->getSet()[tolower(link)-'a']);
       p->abilUsedBy(p->getAbility(a));
+      showBoard();
     }
 
     p->setAbilityCount(a, p->getAbilityCount()[a]-1);

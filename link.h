@@ -17,6 +17,8 @@ class Link: public BoardObjects{
     int strength;
     int spaces = 1;
     bool alive = true;
+    bool onFire = false;
+    char fireC;
     vector <shared_ptr<BoardObjects>> others;
 
 
@@ -35,8 +37,12 @@ class Link: public BoardObjects{
     vector <shared_ptr<BoardObjects>> getOthers() override;
     bool isAlive() override;
     void kill() override;
+    bool isOnFire() override;
+    void setFire(bool) override;
+    char getFireC() override;
+    void setFireC(char c) override;
     
-
+    
 };
 
 

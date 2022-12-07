@@ -1,6 +1,6 @@
 #include "boardObjects.h"
 
-BoardObjects::BoardObjects(char c, int x, int y, int owner) : c{c}, x{x}, y{y}, owner{owner} {}
+BoardObjects::BoardObjects(char c, int x, int y, int owner) : c{c}, x{x}, y{y}, owner{owner}, startX{x}, startY{y} {}
 
 int BoardObjects::getX() { return x; }
 
@@ -26,3 +26,11 @@ void BoardObjects::setType(char c) { }
 /* vector <shared_ptr<BoardObjects>> BoardObjects::getOthers() {  } */
 
 void BoardObjects::setSpaces(int i) { }
+
+bool BoardObjects::isOnFire() { return false; }
+
+void BoardObjects::setFire(bool i) { cout << "Board Object can't be set on fire" << endl; }
+
+char BoardObjects::getFireC() { return ' '; }
+
+void BoardObjects::setFireC(char c) { cout << "Board Object can't have fire C" << endl; }
