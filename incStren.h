@@ -13,6 +13,5 @@ class IncStren: public Abilities{
     virtual void useAbility(Player & b) override;
 };
 
-
-
 #endif
+
